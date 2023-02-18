@@ -25,9 +25,11 @@ SHORTB_BUTTON = Button(image = WHITE_BUTTON, pos = (WIDTH/2, HEIGHT/2-300), text
 LONGB_BUTTON = Button(image = WHITE_BUTTON, pos = (WIDTH/2+250, HEIGHT/2-300), text_input ="LONG BREAK", font = font,   base_color = 'black', hovering_color = 'pink')
 
  
-POMODORO_LENGTH = 1500# 1500 secs / 25 mins
-SHORT_BREAK_LENGTH =300# 300 secs / 5 mins
-LONG_BREAK_LENGTH = 900# 900 secs / 15 mins
+POMODORO_LENGTH = 2# 1500 secs / 25 mins
+SHORT_BREAK_LENGTH =4# 300 secs / 5 mins
+LONG_BREAK_LENGTH = 5# 900 secs / 15 mins
+
+cycle = 1
 
 current_seconds = POMODORO_LENGTH
 pygame.time.set_timer(pygame.USEREVENT, 1000)
@@ -46,12 +48,18 @@ while True:
                 else:
                     started = True
             if POMO_BUTTON.checkForInput(pygame.mouse.get_pos()):
+                cycle = 0
+                print(cycle)
                 current_seconds = POMODORO_LENGTH
                 started = False
             if SHORTB_BUTTON.checkForInput(pygame.mouse.get_pos()):
+                cycle = 1
+                print(cycle)
                 current_seconds = SHORT_BREAK_LENGTH
                 started = False
             if LONGB_BUTTON.checkForInput(pygame.mouse.get_pos()):
+                cycle = 4
+                print(cycle)
                 current_seconds = LONG_BREAK_LENGTH
                 started = False
             if started:
@@ -64,6 +72,7 @@ while True:
                                             START_STOP_BUTTON.text_input, True, START_STOP_BUTTON.base_color)
         if event.type == pygame.USEREVENT and started:
             current_seconds -= 1
+
     
     
     SCREEN.fill('light blue')
@@ -82,6 +91,61 @@ while True:
         display_minutes = int(current_seconds / 60) % 60
     timer_text = FONT.render(f"{display_minutes:02}:{display_seconds:02}", True, "white")
     SCREEN.blit(timer_text, timer_text_rect)
+
+
+    if cycle == 0 and current_seconds <=0:
+            print(cycle)
+            cycle += 1
+            started = False
+            current_seconds = POMODORO_LENGTH
+            START_STOP_BUTTON.text_input = "START"
+            START_STOP_BUTTON.text = pygame.font.Font("assets/pong.ttf", 20).render(
+                                                START_STOP_BUTTON.text_input, True, START_STOP_BUTTON.base_color)
+    if cycle == 1 and current_seconds <=0:
+        print(cycle)
+        cycle += 1
+        started = False
+        current_seconds = SHORT_BREAK_LENGTH
+        START_STOP_BUTTON.text_input = "START"
+        START_STOP_BUTTON.text = pygame.font.Font("assets/pong.ttf", 20).render(
+                                            START_STOP_BUTTON.text_input, True, START_STOP_BUTTON.base_color)
+    if cycle == 2 and current_seconds <= 0:
+        print(cycle)
+        cycle += 1
+        started = False
+        current_seconds = POMODORO_LENGTH
+        START_STOP_BUTTON.text_input = "START"
+        START_STOP_BUTTON.text = pygame.font.Font("assets/pong.ttf", 20).render(
+                                            START_STOP_BUTTON.text_input, True, START_STOP_BUTTON.base_color)
+    if cycle == 3 and current_seconds <= 0:
+        print(cycle)
+        cycle += 1
+        started = False
+        current_seconds = SHORT_BREAK_LENGTH
+        START_STOP_BUTTON.text_input = "START"
+        START_STOP_BUTTON.text = pygame.font.Font("assets/pong.ttf", 20).render(
+                                            START_STOP_BUTTON.text_input, True, START_STOP_BUTTON.base_color)
+    if cycle == 4 and current_seconds <= 0:
+        print(cycle)
+        cycle += 1
+        started = False
+        current_seconds = POMODORO_LENGTH
+        START_STOP_BUTTON.text_input = "START"
+        START_STOP_BUTTON.text = pygame.font.Font("assets/pong.ttf", 20).render(
+                                            START_STOP_BUTTON.text_input, True, START_STOP_BUTTON.base_color)
+    if cycle == 5 and current_seconds <= 0:
+        print(cycle)
+        cycle -= 5
+        started = False
+        current_seconds = LONG_BREAK_LENGTH
+        START_STOP_BUTTON.text_input = "START"
+        START_STOP_BUTTON.text = pygame.font.Font("assets/pong.ttf", 20).render(
+                                            START_STOP_BUTTON.text_input, True, START_STOP_BUTTON.base_color)
+    
+
+    
+        
+        
         
     pygame.display.update()
     
